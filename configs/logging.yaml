@@ -1,0 +1,31 @@
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+  simple:
+    format: "[%(asctime)15s] [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s):"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+  file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simpler
+    filename: logs/info.log
+    encoding: utf-8
+  error_handler:
+    calss: logging.handler.RotatingFileHandler
+    level: ERROR
+    formatter: simple
+    filename: logs/error.log
+    encoding: utf-8
+
+root:
+  level: INFO
+  handler: [console, file_handler, error_handler]

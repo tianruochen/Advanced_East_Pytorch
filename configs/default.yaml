@@ -1,0 +1,51 @@
+name: advanced_east
+version: 1.0
+
+model_arch:
+  type: vggnet
+  num_classes: 1
+
+data_loader:
+  type: lmdbdataloader
+  image_fmt: rgb
+  train_loader:
+    image_dir: "datasets/"
+    data_aug:
+      image_resize: 640
+      random_flip: false
+      random_crop: false
+      random_brightness: true
+      random_gamma: true
+      random_saturation: true
+      shuffle: true
+  valid_loader:
+    image_dir: "datasets/"
+    shuffle: false
+  batch_size: 16
+  n_workers: 24
+  pin_memory: true
+
+trianer:
+  n_gpus: 1
+  epoch: 120
+  optimizer: sgd
+  learn_rate: 1e-2
+  momentum: 0.9
+  lr_scheduler: steplr
+  save_dir: ""
+  save_freq:
+  valid_interval:
+  log_interval:
+  monitor:
+  monitor_mode:
+  visualization: tensorboardx
+  log_dir:
+  pretrain:
+  fix_random_seed:
+
+
+loss: cross_entry_loss
+metrics: ["precision", "recall", "f1_score"]
+
+
+
